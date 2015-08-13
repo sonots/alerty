@@ -34,8 +34,9 @@ $ alerty -c example.yml -- ls -l /something_not_exist
 
 ```
 $ bin/alerty -h
-Usage: alerty [options] -- command
     -c, --config CONFIG_PATH         config file path (default: /etc/sysconfig/alerty)
+    -t, --timeout SECONDS            timeout the command (default: no timeout)
+    -l, --lock LOCK_FILE             exclusive lock file not to run the same command duplicatedly (default: no lock)
 ```
 
 ## Plugins

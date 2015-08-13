@@ -1,24 +1,25 @@
-require 'open3'
+require 'frontkick'
 
 class Alerty
   class Command
-    def initialize(command:)
+    def initialize(command: , opts: {})
       @command = command
+      @opts = opts
     end
 
     def run!
-      stdout, stderr, status = Open3.capture3("#{@command} 2>&1", stdin_data: $stdin)
-      if status.success?
+      result = Frontkick.exec("#{@command} 2>&1", @opts)
+      if result.success?
         exit 0
       else
         Config.plugins.each do |plugin|
           begin
-            plugin.alert(stdout)
+            plugin.alert(result.stdout)
           rescue => e
             Alerty.logger.warn "#{e.class} #{e.message} #{e.backtrace.join("\n")}"
           end
         end
-        exit status.exitstatus
+        exit result.exitstatus
       end
     end
   end

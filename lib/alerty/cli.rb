@@ -16,10 +16,18 @@ class Alerty
 
     opts = {
       config: '/etc/sysconfig/alerty',
+      timeout: nil,
+      exclusive: nil,
     }
 
-    op.on('-c', '--config CONFIG_PATH', "config file path (default: #{opts[:config]})") {|v|
+    op.on('-c', '--config CONFIG_FILE', "config file path (default: #{opts[:config]})") {|v|
       opts[:config] = v
+    }
+    op.on('-t', '--timeout SECONDS', "timeout the command (default: no timeout)") {|v|
+      opts[:timeout] = v.to_i
+    }
+    op.on('-l', '--lock LOCK_FILE', "exclusive lock file to prevent running a command duplicatedly (default: no lock)") {|v|
+      opts[:exclusive] = v
     }
 
     op.parse!(argv)
@@ -42,6 +50,6 @@ class Alerty
 
     Config.configure(config_path: opts[:config]) if opts[:config]
     Config.plugins # load plugins in early stage
-    Command.new(command: opts[:command]).run!
+    Command.new(command: opts[:command], opts: opts).run!
   end
 end

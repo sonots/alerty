@@ -15,6 +15,7 @@ Gem::Specification.new do |gem|
 
   gem.add_runtime_dependency 'hashie'
   gem.add_runtime_dependency 'oneline_log_formatter'
+  gem.add_runtime_dependency 'frontkick'
 
   gem.add_development_dependency 'rspec'
   gem.add_development_dependency 'pry'
