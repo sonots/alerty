@@ -16,3 +16,4 @@ vendor
 pkg/
 .env
 log/alerty.log
+spec/cli_spec.out

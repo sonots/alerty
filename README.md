@@ -1,10 +1,14 @@
 # alerty
 
-Send an alert if a given command failed. 
+A CLI utility to send an alert if a given command failed. 
 
 ## How Useful?
 
-I use `alerty` to run commands in cron. With `alerty`, we can send an alert if a cron command fails.
+I use `alerty` to run commands in cron to send alerts if cron commands fail.
+
+```
+0 * * * * alerty -c /etc/sysconfig/alerty -- /path/to/script --foo FOO --bar
+```
 
 ## Installation
 
@@ -53,10 +57,6 @@ Following plugins are available:
 ## ChangeLog
 
 See [CHANGELOG.md](CHANGELOG.md) for details.
-
-### ToDo
-
-* Add tests
 
 ### Licenses
 

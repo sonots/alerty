@@ -1,0 +1,6 @@
+log_path: STDOUT
+log_level: debug
+timeout: 10
+plugins:
+  - type: file
+    path: spec/cli_spec.out
