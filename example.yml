@@ -1,0 +1,6 @@
+log_path: log/alerty.log
+log_level: debug
+plugins:
+  - type: stdout
+  - type: file
+    path: log/failure.log
