@@ -2,9 +2,9 @@ require 'frontkick'
 
 class Alerty
   class Command
-    def initialize(command: , opts: {})
+    def initialize(command:)
       @command = command
-      @opts = opts
+      @opts = { timeout: Config.timeout, exclusive: Config.lock_path }
     end
 
     def run!

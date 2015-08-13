@@ -14,24 +14,24 @@ class Alerty
       end
     end
 
-    opts = {
-      config: '/etc/sysconfig/alerty',
-      timeout: nil,
-      exclusive: nil,
+    opts = {}
+    op.on('-c', '--config CONFIG_FILE', "config file path (default: /etc/sysconfig/alerty)") {|v|
+      opts[:config_path] = v
     }
-
-    op.on('-c', '--config CONFIG_FILE', "config file path (default: #{opts[:config]})") {|v|
-      opts[:config] = v
+    op.on('--log LOG_FILE', "log file path (default: STDOUT)") {|v|
+      opts[:log_path] = v
+    }
+    op.on('--log-level LOG_LEVEL', "log level (default: warn)") {|v|
+      opts[:log_level] = v
     }
     op.on('-t', '--timeout SECONDS', "timeout the command (default: no timeout)") {|v|
       opts[:timeout] = v.to_i
     }
     op.on('-l', '--lock LOCK_FILE', "exclusive lock file to prevent running a command duplicatedly (default: no lock)") {|v|
-      opts[:exclusive] = v
+      opts[:lock_path] = v
     }
 
     op.parse!(argv)
-
     opts[:command] = argv.join(' ')
 
     if opts[:command].empty?
@@ -48,8 +48,8 @@ class Alerty
       usage e.message
     end
 
-    Config.configure(config_path: opts[:config]) if opts[:config]
+    Config.configure(opts)
     Config.plugins # load plugins in early stage
-    Command.new(command: opts[:command], opts: opts).run!
+    Command.new(command: opts[:command]).run!
   end
 end

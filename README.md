@@ -17,7 +17,10 @@ gem install alerty
 You can write a configuration file located at `/etc/sysconfig/alerty` (You can configure this path by `ALERTY_CONFIG_FILE` environment variable, or `-c` option):
 
 ```
+log_path: STDOUT
 log_level: 'debug'
+timeout: 10
+lock_path: /tmp/lock
 plugins:
   - type: stdout
 ```
@@ -34,9 +37,11 @@ $ alerty -c example.yml -- ls -l /something_not_exist
 
 ```
 $ bin/alerty -h
-    -c, --config CONFIG_PATH         config file path (default: /etc/sysconfig/alerty)
+    -c, --config CONFIG_FILE         config file path (default: /etc/sysconfig/alerty)
+        --log LOG_FILE               log file path (default: STDOUT)
+        --log-level LOG_LEVEL        log level (default: warn
     -t, --timeout SECONDS            timeout the command (default: no timeout)
-    -l, --lock LOCK_FILE             exclusive lock file not to run the same command duplicatedly (default: no lock)
+    -l, --lock LOCK_FILE             exclusive lock file to prevent running a command duplicatedly (default: no lock)
 ```
 
 ## Plugins

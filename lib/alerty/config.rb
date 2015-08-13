@@ -4,12 +4,14 @@ require 'hashie/mash'
 class Alerty
   class Config
     class << self
-      def configure(config_path: )
-        @config_path = config_path
+      attr_reader :opts
+
+      def configure(opts)
+        @opts = opts
       end
 
       def config_path
-        @config_path ||= ENV['ALERTY_CONFIG_PATH'] || '/etc/sysconfig/alerty'
+        @config_path ||= opts[:config_path] || ENV['ALERTY_CONFIG_PATH'] || '/etc/sysconfig/alerty'
       end
 
       def config
@@ -17,11 +19,19 @@ class Alerty
       end
 
       def log_path
-        config.log_path || 'STDOUT'
+        opts[:log_path] || config.log_path || 'STDOUT'
       end
 
       def log_level
-        config.log_level || 'warn'
+        opts[:log_level] || config.log_level || 'warn'
+      end
+
+      def timeout
+        opts[:timeout] || config.timeout
+      end
+
+      def lock_path
+        opts[:lock_path] || config.lock_path
       end
 
       def plugins
