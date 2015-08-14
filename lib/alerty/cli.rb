@@ -22,14 +22,17 @@ class Alerty
       op.on('--log LOG_FILE', "log file path (default: STDOUT)") {|v|
         opts[:log_path] = v
       }
-      op.on('--log-level LOG_LEVEL', "log level (default: warn)") {|v|
+      op.on('-l', '--log-level LOG_LEVEL', "log level (default: warn)") {|v|
         opts[:log_level] = v
       }
       op.on('-t', '--timeout SECONDS', "timeout the command (default: no timeout)") {|v|
         opts[:timeout] = v.to_i
       }
-      op.on('-l', '--lock LOCK_FILE', "exclusive lock file to prevent running a command duplicatedly (default: no lock)") {|v|
+      op.on('--lock LOCK_FILE', "exclusive lock file to prevent running a command duplicatedly (default: no lock)") {|v|
         opts[:lock_path] = v
+      }
+      op.on('-d', '--debug', "debug mode (same with --log-level debug)") {|v|
+        opts[:log_level] = 'debug'
       }
 
       op.parse!(argv)
