@@ -52,6 +52,8 @@ $ bin/alerty -h
 
 Following plugins are available:
 
+* [stdout](./lib/alerty/plugin/stdout.rb)
+* [file](./lib/alerty/plugin/file.rb)
 * [alerty-plugin-ikachan](https://github.com/sonots/alerty-plugin-ikachan)
 
 ## ChangeLog

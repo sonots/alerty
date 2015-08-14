@@ -1,3 +1,14 @@
+# 0.0.3 (2015/08/13)
+
+Enchancements:
+
+* Pass more information to plugins
+  * command
+  * exitstatus
+  * output
+  * started_at
+  * duration
+
 # 0.0.2 (2015/08/13)
 
 Enchancements:
