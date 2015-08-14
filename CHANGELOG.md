@@ -1,3 +1,9 @@
+# 0.0.8 (2015/08/15)
+
+Enhancements:
+
+* Send alert if timeout or locked occurs
+
 # 0.0.7 (2015/08/15)
 
 Enhancements:
