@@ -12,17 +12,38 @@ class Alerty
 
     def run!
       started_at = Time.now
-      result = Frontkick.exec("#{@command} 2>&1", @opts)
-      record = {
-        hostname:   @hostname,
-        command:    @command,
-        exitstatus: result.exitstatus,
-        output:     result.stdout,
-        started_at: started_at.to_f,
-        duration:   result.duration,
-      }
+      begin
+        result = Frontkick.exec("#{@command} 2>&1", @opts)
+      rescue Frontkick::Timeout => e
+        record = {
+          hostname:   @hostname,
+          command:    @command,
+          exitstatus: 1,
+          output:     "`#{@command}` is timeout (#{@opts[:timeout]} sec)",
+          started_at: started_at.to_f,
+          duration:   @opts[:timeout],
+        }
+      rescue Frontkick::Locked => e
+        record = {
+          hostname:   @hostname,
+          command:    @command,
+          exitstatus: 1,
+          output:     "`#{@opts[:exclusive]}` is locked by another process",
+          started_at: started_at.to_f,
+          duration:   0,
+        }
+      else
+        record = {
+          hostname:   @hostname,
+          command:    @command,
+          exitstatus: result.exitstatus,
+          output:     result.stdout,
+          started_at: started_at.to_f,
+          duration:   result.duration,
+        }
+      end
       Alerty.logger.info { "result: #{record.to_json}" }
-      if result.success?
+      if record[:exitstatus] == 0
         exit 0
       else
         Config.plugins.each do |plugin|
@@ -32,7 +53,7 @@ class Alerty
             Alerty.logger.warn "#{e.class} #{e.message} #{e.backtrace.join("\n")}"
           end
         end
-        exit result.exitstatus
+        exit record[:exitstatus]
       end
     end
   end

@@ -49,5 +49,60 @@ describe Alerty::Command do
         expect(JSON.parse(stdout)["output"]).to eql("foo")
       end
     end
+
+    context 'timeout' do
+      before do
+        Alerty::Config.instance_variable_set(:@config, Hashie::Mash.new(
+          plugins: [{
+            type: 'stdout',
+          }]
+        ))
+        Alerty::Config.configure(
+          log_path: '/tmp/foo',
+          log_level: 'fatal',
+          timeout: 0.1,
+          lock_path: '/tmp/lock',
+        )
+      end
+
+      let(:command) { Alerty::Command.new(command: 'sleep 1') }
+
+      it do
+        expect(Frontkick).to receive(:exec).with("sleep 1 2>&1", {
+          timeout: 0.1,
+          exclusive: '/tmp/lock',
+        }).and_raise(Frontkick::Timeout.new(111, 'sleep 1 2>&1', true))
+        stdout = capture_stdout { expect { command.run! }.to raise_error(SystemExit) }
+        expect(JSON.parse(stdout)["output"]).to include("timeout")
+      end
+    end
+
+    context 'lock' do
+      before do
+        Alerty::Config.instance_variable_set(:@config, Hashie::Mash.new(
+          plugins: [{
+            type: 'stdout',
+          }]
+        ))
+        Alerty::Config.configure(
+          log_path: '/tmp/foo',
+          log_level: 'fatal',
+          timeout: 20,
+          lock_path: '/tmp/lock',
+        )
+      end
+
+      let(:command) { Alerty::Command.new(command: 'sleep 1') }
+
+      it do
+        expect(Frontkick).to receive(:exec).with("sleep 1 2>&1", {
+          timeout: 20,
+          exclusive: '/tmp/lock',
+        }).and_raise(Frontkick::Locked)
+        stdout = capture_stdout { expect { command.run! }.to raise_error(SystemExit) }
+        expect(JSON.parse(stdout)["output"]).to include("lock")
+      end
+    end
+
   end
 end
