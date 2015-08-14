@@ -1,4 +1,10 @@
-# 0.0.3 (2015/08/14)
+# 0.0.5 (2015/08/14)
+
+Changes:
+
+* Change default conf path from /etc/sysconfig/alerty to /etc/alerty/alerty.yml
+
+# 0.0.4 (2015/08/14)
 
 Enchancements:
 
