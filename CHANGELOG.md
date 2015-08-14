@@ -1,4 +1,11 @@
-# 0.0.3 (2015/08/13)
+# 0.0.3 (2015/08/14)
+
+Enchancements:
+
+* Add exec plugin
+* Pass `hostname` to plugins
+
+# 0.0.3 (2015/08/14)
 
 Enchancements:
 

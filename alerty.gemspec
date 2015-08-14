@@ -1,6 +1,6 @@
 Gem::Specification.new do |gem|
   gem.name          = "alerty"
-  gem.version       = '0.0.3'
+  gem.version       = '0.0.4'
   gem.author        = ['Naotoshi Seo']
   gem.email         = ['sonots@gmail.com']
   gem.homepage      = 'https://github.com/sonots/alerty'
