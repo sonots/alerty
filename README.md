@@ -29,7 +29,7 @@ plugins:
   - type: stdout
 ```
 
-[example/alerty.yml](./example/alerty.yml)
+[example.yml](./example.yml)
 
 ### CLI Example
 
