@@ -11,7 +11,7 @@ class Alerty
       end
 
       def config_path
-        @config_path ||= opts[:config_path] || ENV['ALERTY_CONFIG_PATH'] || '/etc/sysconfig/alerty'
+        @config_path ||= opts[:config_path] || ENV['ALERTY_CONFIG_PATH'] || '/etc/alerty/alerty.yml'
       end
 
       def config

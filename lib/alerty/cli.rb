@@ -16,7 +16,7 @@ class Alerty
       end
 
       opts = {}
-      op.on('-c', '--config CONFIG_FILE', "config file path (default: /etc/sysconfig/alerty)") {|v|
+      op.on('-c', '--config CONFIG_FILE', "config file path (default: /etc/alerty/alerty.yml)") {|v|
         opts[:config_path] = v
       }
       op.on('--log LOG_FILE', "log file path (default: STDOUT)") {|v|
