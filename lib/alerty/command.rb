@@ -1,10 +1,12 @@
 require 'frontkick'
+require 'socket'
 
 class Alerty
   class Command
     def initialize(command:)
       @command = command
       @opts = { timeout: Config.timeout, exclusive: Config.lock_path }
+      @hostname = Socket.gethostname
     end
 
     def run!
@@ -14,6 +16,7 @@ class Alerty
         exit 0
       else
         record = {
+          hostname:   @hostname,
           command:    @command,
           exitstatus: result.exitstatus,
           output:     result.stdout,
