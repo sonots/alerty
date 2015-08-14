@@ -1,3 +1,9 @@
+# 0.0.6 (2015/08/14)
+
+Enhancements:
+
+* Add info log to show command result
+
 # 0.0.5 (2015/08/14)
 
 Changes:
