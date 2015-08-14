@@ -1,8 +1,10 @@
-log_path: log/alerty.log
+log_path: STDOUT
 log_level: debug
 timeout: 10
 lock_path: log/lock
 plugins:
   - type: stdout
   - type: file
-    path: log/failure.log
+    path: log/file.log
+  - type: exec
+    command: cat > log/exec.log

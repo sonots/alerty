@@ -54,6 +54,7 @@ Following plugins are available:
 
 * [stdout](./lib/alerty/plugin/stdout.rb)
 * [file](./lib/alerty/plugin/file.rb)
+* [exec](./lib/alerty/plugin/exec.rb)
 * [alerty-plugin-ikachan](https://github.com/sonots/alerty-plugin-ikachan)
 
 ## ChangeLog
