@@ -1,5 +1,6 @@
 require 'frontkick'
 require 'socket'
+require 'json'
 
 class Alerty
   class Command
@@ -12,17 +13,18 @@ class Alerty
     def run!
       started_at = Time.now
       result = Frontkick.exec("#{@command} 2>&1", @opts)
+      record = {
+        hostname:   @hostname,
+        command:    @command,
+        exitstatus: result.exitstatus,
+        output:     result.stdout,
+        started_at: started_at.to_f,
+        duration:   result.duration,
+      }
+      Alerty.logger.info { "result: #{record.to_json}" }
       if result.success?
         exit 0
       else
-        record = {
-          hostname:   @hostname,
-          command:    @command,
-          exitstatus: result.exitstatus,
-          output:     result.stdout,
-          started_at: started_at.to_f,
-          duration:   result.duration,
-        }
         Config.plugins.each do |plugin|
           begin
             plugin.alert(record)
