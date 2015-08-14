@@ -58,6 +58,65 @@ Following plugins are available:
 * [alerty-plugin-ikachan](https://github.com/sonots/alerty-plugin-ikachan)
 * [alerty-plugin-amazon_sns](https://github.com/sonots/alerty-plugin-amazon_sns)
 
+## Plugin Architecture
+
+### Naming Convention
+
+You must follow the below naming conventions:
+
+* gem name: alerty-plugin-xxx (xxx_yyy)
+* file name: lib/alerty/plugin/xxx.rb (xxx_yyy.rb)
+* class name: Alerty::Plugin:Xxx (XxxYyy)
+
+### Interface
+
+What you have to implement is `#initialize` and `#alert` methods. Here is an example of `file` plugin:
+
+```ruby
+require 'json'
+
+class Alerty
+  class Plugin
+    class File
+      def initialize(config)
+        raise ConfigError.new('file: path is not configured') unless config.path
+        @path = config.path
+      end
+
+      def alert(record)
+        ::File.open(@path, 'a') do |io|
+          io.puts record.to_json
+        end
+      end
+    end
+  end
+end
+```
+
+### config
+
+`config` is created from the configuration file: 
+
+```
+plugins:
+  - type: foobar
+    key1: val1
+    key2: val2
+```
+
+`config.key1` and `config.key2` are availabe in the above config. 
+
+### record
+
+`record` is a hash whose keys are
+
+* hostname: hostname
+* command: the executed command
+* exitstatus: the exit status of the executed command
+* output: the output of the exectued command
+* started_at: the time when command executed in epoch time.
+* duration: the duration which the command execution has taken in seconds. 
+
 ## ChangeLog
 
 See [CHANGELOG.md](CHANGELOG.md) for details.
