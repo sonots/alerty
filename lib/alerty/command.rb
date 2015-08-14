@@ -8,13 +8,21 @@ class Alerty
     end
 
     def run!
+      started_at = Time.now
       result = Frontkick.exec("#{@command} 2>&1", @opts)
       if result.success?
         exit 0
       else
+        record = {
+          command:    @command,
+          exitstatus: result.exitstatus,
+          output:     result.stdout,
+          started_at: started_at.to_f,
+          duration:   result.duration,
+        }
         Config.plugins.each do |plugin|
           begin
-            plugin.alert(result.stdout)
+            plugin.alert(record)
           rescue => e
             Alerty.logger.warn "#{e.class} #{e.message} #{e.backtrace.join("\n")}"
           end

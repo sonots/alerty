@@ -1,11 +1,13 @@
+require 'json'
+
 class Alerty
   class Plugin
     class Stdout
       def initialize(config)
       end
 
-      def alert(msg)
-        $stdout.puts msg
+      def alert(record)
+        $stdout.puts record.to_json
       end
     end
   end

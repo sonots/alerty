@@ -41,6 +41,13 @@ class Alerty
           Object.const_get(class_name).new(plugin)
         end
       end
+
+      # for debug
+      def reset
+        @config_path = nil
+        @config = nil
+        @plugins = nil
+      end
     end
   end
 end

@@ -1,3 +1,5 @@
+require 'json'
+
 class Alerty
   class Plugin
     class File
@@ -6,9 +8,9 @@ class Alerty
         @path = config.path
       end
 
-      def alert(msg)
+      def alert(record)
         ::File.open(@path, 'a') do |io|
-          io.puts msg
+          io.puts record.to_json
         end
       end
     end

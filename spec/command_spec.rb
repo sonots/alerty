@@ -46,7 +46,7 @@ describe Alerty::Command do
           exclusive: nil,
         }).and_return(Frontkick::Result.new(stdout: 'foo', exit_code: 1))
         stdout = capture_stdout { expect { command.run! }.to raise_error(SystemExit) }
-        expect(stdout).to eql("foo\n")
+        expect(JSON.parse(stdout)["output"]).to eql("foo")
       end
     end
   end

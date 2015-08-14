@@ -35,6 +35,7 @@ describe Alerty::Config do
 
   describe 'plugins' do
     before do
+      Alerty::Config.reset
       Alerty::Config.instance_variable_set(:@config, Hashie::Mash.new(
         log_path: '/tmp/foo',
         log_level: 'fatal',
