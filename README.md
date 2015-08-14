@@ -43,9 +43,10 @@ $ alerty -c example.yml -- ls -l /something_not_exist
 $ bin/alerty -h
     -c, --config CONFIG_FILE         config file path (default: /etc/alerty/alerty.yml)
         --log LOG_FILE               log file path (default: STDOUT)
-        --log-level LOG_LEVEL        log level (default: warn
+    -l, --log-level LOG_LEVEL        log level (default: warn)
     -t, --timeout SECONDS            timeout the command (default: no timeout)
-    -l, --lock LOCK_FILE             exclusive lock file to prevent running a command duplicatedly (default: no lock)
+        --lock LOCK_FILE             exclusive lock file to prevent running a command duplicatedly (default: no lock)
+    -d, --debug                      debug mode (same with --log-level debug)
 ```
 
 ## Plugins

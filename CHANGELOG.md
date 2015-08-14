@@ -1,3 +1,10 @@
+# 0.0.7 (2015/08/15)
+
+Enhancements:
+
+* Change -l option from --lock to --log-level
+* Add -d (--debug) option, same with -l debug
+
 # 0.0.6 (2015/08/14)
 
 Enhancements:
