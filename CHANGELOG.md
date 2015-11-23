@@ -1,3 +1,9 @@
+# 0.0.9 (2015/11/23)
+
+Enhancements:
+
+* Support retry
+
 # 0.0.8 (2015/08/15)
 
 Enhancements:
