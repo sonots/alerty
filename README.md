@@ -123,7 +123,7 @@ plugins:
 * duration: the duration which the command execution has taken in seconds. 
 * retries: the number of retries
 
-# ChangeLog
+## ChangeLog
 
 See [CHANGELOG.md](CHANGELOG.md) for details.
 
