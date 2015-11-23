@@ -25,6 +25,8 @@ log_path: STDOUT
 log_level: 'debug'
 timeout: 10
 lock_path: /tmp/lock
+retry_limit: 2
+retry_wait: 10
 plugins:
   - type: stdout
 ```
@@ -46,6 +48,8 @@ $ bin/alerty -h
     -l, --log-level LOG_LEVEL        log level (default: warn)
     -t, --timeout SECONDS            timeout of the command, send alert if timeout reached (default: no timeout)
         --lock LOCK_FILE             exclusive lock file to prevent running a command duplicatedly, send alert if locked (default: no lock)
+        --retry-limit NUMBER         number of retries (default: 0)
+        --retry-wait SECONDS         retry interval = retry wait +/- 12.5% randomness (default: 1.0)
     -d, --debug                      debug mode (same with --log-level debug)
 ```
 
@@ -117,8 +121,9 @@ plugins:
 * output: the output of the exectued command
 * started_at: the time when command executed in epoch time.
 * duration: the duration which the command execution has taken in seconds. 
+* retries: the number of retries
 
-## ChangeLog
+# ChangeLog
 
 See [CHANGELOG.md](CHANGELOG.md) for details.
 
