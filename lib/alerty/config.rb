@@ -34,6 +34,20 @@ class Alerty
         opts[:lock_path] || config.lock_path
       end
 
+      def retry_limit
+        opts[:retry_limit] || config.retry_limit || 0
+      end
+
+      def retry_wait
+        opts[:retry_wait] || config.retry_wait || 1.0
+      end
+
+      def retry_interval
+        @random ||= Random.new
+        randomness = retry_wait * 0.125
+        retry_wait + @random.rand(-randomness .. randomness)
+      end
+
       def plugins
         @plugins ||= config.fetch('plugins').map do |plugin|
           require "alerty/plugin/#{plugin.type}"

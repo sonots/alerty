@@ -26,10 +26,16 @@ class Alerty
         opts[:log_level] = v
       }
       op.on('-t', '--timeout SECONDS', "timeout the command (default: no timeout)") {|v|
-        opts[:timeout] = v.to_i
+        opts[:timeout] = v.to_f
       }
       op.on('--lock LOCK_FILE', "exclusive lock file to prevent running a command duplicatedly (default: no lock)") {|v|
         opts[:lock_path] = v
+      }
+      op.on('--retry-limit NUMBER', "number of retries (default: 0)") {|v|
+        opts[:retry_limit] = v.to_i
+      }
+      op.on('--retry-wait SECONDS', "retry interval = retry wait +/- 12.5% randomness (default: 1.0)") {|v|
+        opts[:retry_wait] = v.to_f
       }
       op.on('-d', '--debug', "debug mode (same with --log-level debug)") {|v|
         opts[:log_level] = 'debug'

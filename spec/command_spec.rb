@@ -19,7 +19,7 @@ describe Alerty::Command do
           timeout: 20,
           exclusive: '/tmp/lock',
         }).and_return(Frontkick::Result.new(exit_code: 0))
-        expect { command.run! }.to raise_error(SystemExit)
+        expect { command.run! }.not_to raise_error
       end
     end
 
@@ -101,6 +101,32 @@ describe Alerty::Command do
         }).and_raise(Frontkick::Locked)
         stdout = capture_stdout { expect { command.run! }.to raise_error(SystemExit) }
         expect(JSON.parse(stdout)["output"]).to include("lock")
+      end
+    end
+
+    context 'retry' do
+      before do
+        Alerty::Config.instance_variable_set(:@config, Hashie::Mash.new(
+          plugins: [{
+            type: 'stdout',
+          }]
+        ))
+        Alerty::Config.configure(
+          log_path: '/tmp/foo',
+          log_level: 'fatal',
+          retry_limit: 1,
+        )
+      end
+
+      let(:command) { Alerty::Command.new(command: 'echo foo') }
+
+      it do
+        expect(Frontkick).to receive(:exec).twice.with("echo foo 2>&1", {
+          timeout: nil,
+          exclusive: nil,
+        }).and_return(Frontkick::Result.new(stdout: 'foo', exit_code: 1))
+        stdout = capture_stdout { expect { command.run! }.to raise_error(SystemExit) }
+        expect(JSON.parse(stdout)["retries"]).to eql(1)
       end
     end
 
