@@ -7,7 +7,7 @@ require_relative 'alerty/cli'
 
 class Alerty
   def self.logger
-    @logger ||= Logger.new(Config.log_path).tap do |logger|
+    @logger ||= Logger.new(Config.log_path, Config.log_shift_age, Config.log_shift_size).tap do |logger|
       logger.level = Config.log_level
     end
   end

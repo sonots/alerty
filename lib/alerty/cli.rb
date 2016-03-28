@@ -25,6 +25,12 @@ class Alerty
       op.on('-l', '--log-level LOG_LEVEL', "log level (default: warn)") {|v|
         opts[:log_level] = v
       }
+      op.on('--log-shift-age SHIFT_AGE', "Number of old log files to keep (default: 0 which means no log rotation)") {|v|
+        opts[:log_shift_age] = Integer(v)
+      }
+      op.on('--log-shift-size SHIFT_SIZE', "Maximum logfile size in bytes (default: 1048576)") {|v|
+        opts[:log_shift_age] = Integer(v)
+      }
       op.on('-t', '--timeout SECONDS', "timeout the command (default: no timeout)") {|v|
         opts[:timeout] = v.to_f
       }

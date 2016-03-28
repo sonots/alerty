@@ -26,6 +26,14 @@ class Alerty
         opts[:log_level] || config.log_level || 'warn'
       end
 
+      def log_shift_age
+        opts[:log_shift_age] || config.shift_age || 0
+      end
+
+      def log_shift_size
+        opts[:log_shift_size] || config.shift_size || 1048576
+      end
+
       def timeout
         opts[:timeout] || config.timeout
       end
