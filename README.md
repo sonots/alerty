@@ -21,8 +21,10 @@ gem install alerty
 You can write a configuration file located at `/etc/alerty/alerty.yml` (You can configure this path by `ALERTY_CONFIG_FILE` environment variable, or `-c` option):
 
 ```
-log_path: STDOUT
-log_level: 'debug'
+log_path: /var/tmp/alerty.log
+log_level: 'info'
+log_shift_age: 10
+log_shift_size: 10485760
 timeout: 10
 lock_path: /tmp/lock
 retry_limit: 2
@@ -42,12 +44,14 @@ $ alerty -c example.yml -- ls -l /something_not_exist
 ### CLI Help
 
 ```
-$ bin/alerty -h
+Usage: alerty [options] -- command
     -c, --config CONFIG_FILE         config file path (default: /etc/alerty/alerty.yml)
         --log LOG_FILE               log file path (default: STDOUT)
     -l, --log-level LOG_LEVEL        log level (default: warn)
-    -t, --timeout SECONDS            timeout of the command, send alert if timeout reached (default: no timeout)
-        --lock LOCK_FILE             exclusive lock file to prevent running a command duplicatedly, send alert if locked (default: no lock)
+        --log-shift-age SHIFT_AGE    Number of old log files to keep (default: 0 which means no log rotation)
+        --log-shift-size SHIFT_SIZE  Maximum logfile size in bytes (default: 1048576)
+    -t, --timeout SECONDS            timeout the command (default: no timeout)
+        --lock LOCK_FILE             exclusive lock file to prevent running a command duplicatedly (default: no lock)
         --retry-limit NUMBER         number of retries (default: 0)
         --retry-wait SECONDS         retry interval = retry wait +/- 12.5% randomness (default: 1.0)
     -d, --debug                      debug mode (same with --log-level debug)
