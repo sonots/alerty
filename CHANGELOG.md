@@ -1,3 +1,10 @@
+# 0.1.0 (2016/03/28)
+
+Enhancements:
+
+* Add --log-shift-age option
+* Add --log-shift-size option
+
 # 0.0.9 (2015/11/23)
 
 Enhancements:
