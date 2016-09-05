@@ -1,3 +1,9 @@
+# 0.1.1 (2016/09/25)
+
+Enhancements:
+
+* Bundler.with_clean_env
+
 # 0.1.0 (2016/03/28)
 
 Enhancements:
