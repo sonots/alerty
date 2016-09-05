@@ -15,7 +15,7 @@ class Alerty
       with_retry do |retries|
         started_at = Time.now
         begin
-          result = Frontkick.exec("#{@command} 2>&1", @opts)
+          result = with_clean_env { Frontkick.exec("#{@command} 2>&1", @opts) }
         rescue Frontkick::Timeout => e
           record = {
             hostname:   @hostname,
@@ -63,6 +63,16 @@ class Alerty
     end
 
     private
+
+    def with_clean_env
+      if defined?(Bundler)
+        Bundler.with_clean_env do
+          yield
+        end
+      else
+        yield
+      end
+    end
 
     def with_retry
       retries = 0
