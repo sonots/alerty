@@ -66,6 +66,7 @@ Following plugins are available:
 * [exec](./lib/alerty/plugin/exec.rb)
 * [sonots/alerty-plugin-ikachan](https://github.com/sonots/alerty-plugin-ikachan)
 * [sonots/alerty-plugin-amazon_sns](https://github.com/sonots/alerty-plugin-amazon_sns)
+* [sonots/alerty-plugin-slack](https://github.com/sonots/alerty-plugin-slack)
 * [civitaspo/alerty-plugin-mail](https://github.com/civitaspo/alerty-plugin-mail)
 * [inokappa/alerty-plugin-datadog_event](https://github.com/inokappa/alerty-plugin-datadog_event)
 * [inokappa/alerty-plugin-amazon_cloudwatch_logs](https://github.com/inokappa/alerty-plugin-amazon_cloudwatch_logs)
