@@ -1,4 +1,10 @@
-# 0.1.1 (2016/09/25)
+# 0.2.0 (2016/09/25)
+
+Enhancements:
+
+* Allow erb in config yaml
+
+# 0.1.1 (2016/09/05)
 
 Enhancements:
 
