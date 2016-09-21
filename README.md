@@ -54,7 +54,7 @@ Usage: alerty [options] -- command
         --lock LOCK_FILE             exclusive lock file to prevent running a command duplicatedly (default: no lock)
         --retry-limit NUMBER         number of retries (default: 0)
         --retry-wait SECONDS         retry interval = retry wait +/- 12.5% randomness (default: 1.0)
-    -d, --debug                      debug mode (same with --log-level debug)
+    -d, --debug                      debug mode
 ```
 
 ## Plugins

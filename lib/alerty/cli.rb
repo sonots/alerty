@@ -43,8 +43,8 @@ class Alerty
       op.on('--retry-wait SECONDS', "retry interval = retry wait +/- 12.5% randomness (default: 1.0)") {|v|
         opts[:retry_wait] = v.to_f
       }
-      op.on('-d', '--debug', "debug mode (same with --log-level debug)") {|v|
-        opts[:log_level] = 'debug'
+      op.on('-d', '--debug', "debug mode") {|v|
+        opts[:debug] = true
       }
 
       op.parse!(argv)

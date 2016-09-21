@@ -1,4 +1,5 @@
 require 'yaml'
+require 'erb'
 require 'hashie/mash'
 
 class Alerty
@@ -15,7 +16,14 @@ class Alerty
       end
 
       def config
-        @config ||= Hashie::Mash.new(YAML.load_file(config_path))
+        @config ||=
+          begin
+            content = File.read(config_path)
+            erb = ERB.new(content, nil, '-')
+            erb_content = erb.result
+            puts erb_content if debug?
+            Hashie::Mash.new(YAML.load(erb_content))
+          end
       end
 
       def log_path
@@ -48,6 +56,10 @@ class Alerty
 
       def retry_wait
         opts[:retry_wait] || config.retry_wait || 1.0
+      end
+
+      def debug?
+        !!opts[:debug]
       end
 
       def retry_interval
