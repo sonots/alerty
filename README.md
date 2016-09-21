@@ -55,6 +55,7 @@ Usage: alerty [options] -- command
         --retry-limit NUMBER         number of retries (default: 0)
         --retry-wait SECONDS         retry interval = retry wait +/- 12.5% randomness (default: 1.0)
     -d, --debug                      debug mode
+        --dotenv                     Load environment variables from .env file with dotenv
 ```
 
 ## Plugins

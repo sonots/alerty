@@ -46,6 +46,9 @@ class Alerty
       op.on('-d', '--debug', "debug mode") {|v|
         opts[:debug] = true
       }
+      op.on('--dotenv', "Load environment variables from .env file with dotenv") {|v|
+        opts[:dotenv] = true
+      }
 
       op.parse!(argv)
       opts[:command] = argv.join(' ')
