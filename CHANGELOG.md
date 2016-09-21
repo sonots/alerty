@@ -1,3 +1,9 @@
+# 0.2.1 (2016/09/25)
+
+Enhancements:
+
+* Add --dotenv option to load environment variables from .env file
+
 # 0.2.0 (2016/09/25)
 
 Enhancements:
