@@ -5,6 +5,6 @@ lock_path: log/lock
 plugins:
   - type: stdout
   - type: file
-    path: log/file.log
+    path: log/<%= ENV['FILE'] || 'file' %>.log
   - type: exec
     command: cat > log/exec.log
