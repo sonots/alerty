@@ -18,6 +18,10 @@ class Alerty
       def config
         @config ||=
           begin
+            if dotenv?
+              require 'dotenv'
+              Dotenv.load
+            end
             content = File.read(config_path)
             erb = ERB.new(content, nil, '-')
             erb_content = erb.result
@@ -60,6 +64,10 @@ class Alerty
 
       def debug?
         !!opts[:debug]
+      end
+
+      def dotenv?
+        !!opts[:dotenv]
       end
 
       def retry_interval
