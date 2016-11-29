@@ -55,6 +55,7 @@ class Alerty
           begin
             plugin.alert(record)
           rescue => e
+            puts "#{e.class} #{e.message} #{e.backtrace.join("\n")}" if Config.debug?
             Alerty.logger.warn "#{e.class} #{e.message} #{e.backtrace.join("\n")}"
           end
         end
