@@ -1,4 +1,3 @@
-require_relative 'alerty/string_util'
 require_relative 'alerty/error'
 require_relative 'alerty/config'
 require_relative 'alerty/command'

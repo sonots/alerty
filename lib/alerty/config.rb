@@ -1,6 +1,7 @@
 require 'yaml'
 require 'erb'
 require 'hashie/mash'
+require_relative 'plugin_factory'
 
 class Alerty
   class Config
@@ -77,11 +78,7 @@ class Alerty
       end
 
       def plugins
-        @plugins ||= config.fetch('plugins').map do |plugin|
-          require "alerty/plugin/#{plugin.type}"
-          class_name = "Alerty::Plugin::#{StringUtil.camelize(plugin.type)}" 
-          Object.const_get(class_name).new(plugin)
-        end
+        @plugins ||= config.fetch('plugins').map {|conf| PluginFactory.create(conf) }
       end
 
       # for debug
