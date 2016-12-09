@@ -3,6 +3,8 @@ require_relative 'alerty/config'
 require_relative 'alerty/command'
 require_relative 'alerty/logger'
 require_relative 'alerty/cli'
+require_relative 'alerty/string_util'
+require_relative 'alerty/plugin_factory'
 
 class Alerty
   def self.logger

@@ -1,7 +1,6 @@
 require 'yaml'
 require 'erb'
 require 'hashie/mash'
-require_relative 'plugin_factory'
 
 class Alerty
   class Config
@@ -78,7 +77,7 @@ class Alerty
       end
 
       def plugins
-        @plugins ||= config.fetch('plugins').map {|conf| PluginFactory.create(conf) }
+        @plugins ||= config.fetch('plugins')
       end
 
       # for debug

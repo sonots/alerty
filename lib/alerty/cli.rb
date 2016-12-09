@@ -68,7 +68,7 @@ class Alerty
       end
   
       Config.configure(opts)
-      Config.plugins # load plugins in early stage
+      PluginFactory.plugins # load plugins in early stage
       command = Command.new(command: opts[:command])
       command.run!
     end

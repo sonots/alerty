@@ -51,7 +51,7 @@ class Alerty
         record
       end
       unless record[:exitstatus] == 0
-        Config.plugins.each do |plugin|
+        PluginFactory.plugins.each do |plugin|
           begin
             plugin.alert(record)
           rescue => e
