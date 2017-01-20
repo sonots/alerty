@@ -1,3 +1,10 @@
+# 0.2.3 (2017/01/20)
+
+Enhancements:
+
+* Enrich debug print
+* Add --version option
+
 # 0.2.2 (2017/01/20)
 
 Fixes:
