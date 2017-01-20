@@ -41,7 +41,7 @@ class Alerty
             'lock_path' => lock_path,
             'retry_limit' => retry_limit,
             'retry_wait' => retry_wait,
-            'plugin' => yaml['plugins'],
+            'plugins' => yaml['plugins'],
           }.to_yaml)
         end
         @config
