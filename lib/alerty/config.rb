@@ -16,18 +16,35 @@ class Alerty
       end
 
       def config
-        @config ||=
-          begin
-            if dotenv?
-              require 'dotenv'
-              Dotenv.load
-            end
-            content = File.read(config_path)
-            erb = ERB.new(content, nil, '-')
-            erb_content = erb.result
-            puts erb_content if debug?
-            Hashie::Mash.new(YAML.load(erb_content))
-          end
+        return @config if @config
+        if dotenv?
+          require 'dotenv'
+          Dotenv.load
+        end
+        content = File.read(config_path)
+        erb = ERB.new(content, nil, '-')
+        erb_content = erb.result
+        if debug?
+          puts '=== Erb evaluated config ==='
+          puts erb_content
+        end
+        yaml = YAML.load(erb_content)
+        @config = Hashie::Mash.new(yaml)
+        if debug?
+          puts '=== Recognized config ==='
+          puts({
+            'log_path' => log_path,
+            'log_level' => log_level,
+            'log_shift_age' => log_shift_age,
+            'log_shift_size' => log_shift_size,
+            'timeout' => timeout,
+            'lock_path' => lock_path,
+            'retry_limit' => retry_limit,
+            'retry_wait' => retry_wait,
+            'plugin' => yaml['plugins'],
+          }.to_yaml)
+        end
+        @config
       end
 
       def log_path

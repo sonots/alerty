@@ -1,5 +1,7 @@
 log_path: STDOUT
 log_level: debug
+log_shift_age: 5
+log_shift_size: 10485760
 timeout: 10
 lock_path: log/lock
 plugins:
