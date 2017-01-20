@@ -39,11 +39,13 @@ class Alerty
       end
 
       def log_shift_age
-        opts[:log_shift_age] || config.shift_age || 0
+        # config.shift_age is for old version compatibility
+        opts[:log_shift_age] || config.shift_age || config.log_shift_age || 0
       end
 
       def log_shift_size
-        opts[:log_shift_size] || config.shift_size || 1048576
+        # config.log_shift_age is for old version compatibility
+        opts[:log_shift_size] || config.shift_size || config.log_shift_size || 1048576
       end
 
       def timeout
