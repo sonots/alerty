@@ -1,3 +1,9 @@
+# 0.2.2 (2017/01/20)
+
+Fixes:
+
+* Fix log_shift_age and log_shift_size config were not working (instead, shift_age and shift_size were working)
+
 # 0.2.1 (2016/09/25)
 
 Enhancements:
