@@ -1,3 +1,4 @@
+require_relative 'alerty/version'
 require_relative 'alerty/error'
 require_relative 'alerty/config'
 require_relative 'alerty/command'

@@ -43,11 +43,15 @@ class Alerty
       op.on('--retry-wait SECONDS', "retry interval = retry wait +/- 12.5% randomness (default: 1.0)") {|v|
         opts[:retry_wait] = v.to_f
       }
+      op.on('--dotenv', "Load environment variables from .env file with dotenv") {|v|
+        opts[:dotenv] = true
+      }
       op.on('-d', '--debug', "debug mode") {|v|
         opts[:debug] = true
       }
-      op.on('--dotenv', "Load environment variables from .env file with dotenv") {|v|
-        opts[:dotenv] = true
+      op.on('-v', '--version', "print version") {|v|
+        puts Alerty::VERSION
+        exit 0
       }
 
       op.parse!(argv)
