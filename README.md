@@ -77,14 +77,14 @@ Following plugins are available:
 
 ### Naming Convention
 
-You must follow the below naming conventions:
+You must follow following naming conventions:
 
 * gem name: alerty-plugin-xxx (xxx_yyy)
 * file name: lib/alerty/plugin/xxx.rb (xxx_yyy.rb)
 * class name: Alerty::Plugin:Xxx (XxxYyy)
 
 ### Interface
-
+u
 What you have to implement is `#initialize` and `#alert` methods. Here is an example of `file` plugin:
 
 ```ruby
@@ -123,7 +123,7 @@ plugins:
 
 ### record
 
-`record` is a hash whose keys are
+`record` is a hash whose keys are symbols of followings:
 
 * hostname: hostname
 * command: the executed command
