@@ -6,7 +6,7 @@ class Alerty
   class Command
     def initialize(command:)
       @command = command
-      @opts = { timeout: Config.timeout, exclusive: Config.lock_path }
+      @opts = { timeout: Config.timeout, exclusive: Config.lock_path, popen2e: true }
       @hostname = Socket.gethostname
     end
 
@@ -15,7 +15,7 @@ class Alerty
       with_retry do |retries|
         started_at = Time.now
         begin
-          result = with_clean_env { Frontkick.exec("#{@command} 2>&1", @opts) }
+          result = with_clean_env { Frontkick.exec(@command, @opts) }
         rescue Frontkick::Timeout => e
           record = {
             hostname:   @hostname,
@@ -41,7 +41,7 @@ class Alerty
             hostname:   @hostname,
             command:    @command,
             exitstatus: result.exitstatus,
-            output:     result.stdout,
+            output:     result.output,
             started_at: started_at.to_f,
             duration:   result.duration,
             retries:    retries,

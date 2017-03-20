@@ -16,9 +16,10 @@ describe Alerty::Command do
       let(:command) { Alerty::Command.new(command: 'ls') }
 
       it do
-        expect(Frontkick).to receive(:exec).with("ls 2>&1", {
+        expect(Frontkick).to receive(:exec).with("ls", {
           timeout: 20,
           exclusive: '/tmp/lock',
+          popen2e: true,
         }).and_return(Frontkick::Result.new(exit_code: 0))
         expect { command.run! }.not_to raise_error
       end
@@ -42,9 +43,10 @@ describe Alerty::Command do
       let(:command) { Alerty::Command.new(command: 'echo foo') }
 
       it do
-        expect(Frontkick).to receive(:exec).with("echo foo 2>&1", {
+        expect(Frontkick).to receive(:exec).with("echo foo", {
           timeout: nil,
           exclusive: nil,
+          popen2e: true,
         }).and_return(Frontkick::Result.new(stdout: 'foo', exit_code: 1))
         stdout = capture_stdout { expect { command.run! }.to raise_error(SystemExit) }
         expect(JSON.parse(stdout)["output"]).to eql("foo")
@@ -69,10 +71,11 @@ describe Alerty::Command do
       let(:command) { Alerty::Command.new(command: 'sleep 1') }
 
       it do
-        expect(Frontkick).to receive(:exec).with("sleep 1 2>&1", {
+        expect(Frontkick).to receive(:exec).with("sleep 1", {
           timeout: 0.1,
           exclusive: '/tmp/lock',
-        }).and_raise(Frontkick::Timeout.new(111, 'sleep 1 2>&1', true))
+          popen2e: true,
+        }).and_raise(Frontkick::Timeout.new(111, 'sleep 1', true))
         stdout = capture_stdout { expect { command.run! }.to raise_error(SystemExit) }
         expect(JSON.parse(stdout)["output"]).to include("timeout")
       end
@@ -96,9 +99,10 @@ describe Alerty::Command do
       let(:command) { Alerty::Command.new(command: 'sleep 1') }
 
       it do
-        expect(Frontkick).to receive(:exec).with("sleep 1 2>&1", {
+        expect(Frontkick).to receive(:exec).with("sleep 1", {
           timeout: 20,
           exclusive: '/tmp/lock',
+          popen2e: true,
         }).and_raise(Frontkick::Locked)
         stdout = capture_stdout { expect { command.run! }.to raise_error(SystemExit) }
         expect(JSON.parse(stdout)["output"]).to include("lock")
@@ -122,9 +126,10 @@ describe Alerty::Command do
       let(:command) { Alerty::Command.new(command: 'echo foo') }
 
       it do
-        expect(Frontkick).to receive(:exec).twice.with("echo foo 2>&1", {
+        expect(Frontkick).to receive(:exec).twice.with("echo foo", {
           timeout: nil,
           exclusive: nil,
+          popen2e: true,
         }).and_return(Frontkick::Result.new(stdout: 'foo', exit_code: 1))
         stdout = capture_stdout { expect { command.run! }.to raise_error(SystemExit) }
         expect(JSON.parse(stdout)["retries"]).to eql(1)
