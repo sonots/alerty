@@ -1,3 +1,9 @@
+# 0.3.0 (2017/03/20)
+
+Enhancements:
+
+* Use popen2e rather than `2>&1`
+
 # 0.2.3 (2017/01/20)
 
 Enhancements:
