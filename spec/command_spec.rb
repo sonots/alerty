@@ -9,6 +9,7 @@ describe Alerty::Command do
           log_level: 'fatal',
           timeout: 20,
           lock_path: '/tmp/lock',
+          config_path: File.join(ROOT, 'spec/cli_spec.yml'),
         )
       end
 

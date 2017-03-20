@@ -76,8 +76,8 @@ describe Alerty::Config do
     end
 
     it do
-      expect(Alerty::Config.plugins[0]).to be_a(Alerty::Plugin::Stdout)
-      expect(Alerty::Config.plugins[1]).to be_a(Alerty::Plugin::File)
+      expect(Alerty::Config.plugins[0]['type']).to eql('stdout')
+      expect(Alerty::Config.plugins[1]['type']).to eql('file')
     end
   end
 end
