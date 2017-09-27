@@ -56,7 +56,7 @@ class Alerty
       }
 
       op.parse!(argv)
-      opts[:command] = argv.join(' ')
+      opts[:command] = argv.join(' ') || ''
 
       opts
     end
@@ -71,7 +71,7 @@ class Alerty
       Config.configure(opts)
       PluginFactory.plugins # load plugins in early stage
 
-      if opts[:command]
+      if !opts[:command].empty?
         command = Command.new(command: opts[:command])
         record = command.run
         unless record[:exitstatus] == 0
@@ -79,8 +79,13 @@ class Alerty
           exit record[:exitstatus]
         end
       else
-        record = {hostname: Socket.gethostname, output: $stdin.read}
-        Alerty.send(record)
+        begin
+          stdin = $stdin.read_nonblock(100 * 1024 * 1024)
+          record = {hostname: Socket.gethostname, output: stdin}
+          Alerty.send(record)
+        rescue IO::EAGAINWaitReadable => e
+          usage 'command argument or STDIN is required'
+        end
       end
     end
   end

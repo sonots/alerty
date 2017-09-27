@@ -50,6 +50,7 @@ class Alerty
         Alerty.logger.info { "result: #{record.to_json}" }
         record
       end
+      record
     end
 
     private
