@@ -1,4 +1,5 @@
 require 'optparse'
+require 'socket'
 require_relative '../alerty'
 
 class Alerty
@@ -57,10 +58,6 @@ class Alerty
       op.parse!(argv)
       opts[:command] = argv.join(' ')
 
-      if opts[:command].empty?
-        raise OptionParser::InvalidOption.new("No command is given")
-      end
-
       opts
     end
 
@@ -73,8 +70,18 @@ class Alerty
   
       Config.configure(opts)
       PluginFactory.plugins # load plugins in early stage
-      command = Command.new(command: opts[:command])
-      command.run!
+
+      if opts[:command]
+        command = Command.new(command: opts[:command])
+        record = command.run
+        unless record[:exitstatus] == 0
+          Alerty.send(record)
+          exit record[:exitstatus]
+        end
+      else
+        record = {hostname: Socket.gethostname, output: $stdin.read}
+        Alerty.send(record)
+      end
     end
   end
 end
