@@ -1,3 +1,9 @@
+# 0.4.0 (2017/09/29)
+
+Enhancements:
+
+* [experimental] send alert from stdin
+
 # 0.3.0 (2017/03/20)
 
 Enhancements:
