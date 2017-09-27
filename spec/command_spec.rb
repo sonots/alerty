@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Alerty::Command do
-  describe 'run!' do
+  describe 'run' do
     context 'Frontkick.exec' do
       before do
         Alerty::Config.configure(
@@ -21,7 +21,7 @@ describe Alerty::Command do
           exclusive: '/tmp/lock',
           popen2e: true,
         }).and_return(Frontkick::Result.new(exit_code: 0))
-        expect { command.run! }.not_to raise_error
+        command.run
       end
     end
 
@@ -48,8 +48,8 @@ describe Alerty::Command do
           exclusive: nil,
           popen2e: true,
         }).and_return(Frontkick::Result.new(stdout: 'foo', exit_code: 1))
-        stdout = capture_stdout { expect { command.run! }.to raise_error(SystemExit) }
-        expect(JSON.parse(stdout)["output"]).to eql("foo")
+        record = command.run
+        expect(record[:output]).to eql("foo")
       end
     end
 
@@ -76,8 +76,8 @@ describe Alerty::Command do
           exclusive: '/tmp/lock',
           popen2e: true,
         }).and_raise(Frontkick::Timeout.new(111, 'sleep 1', true))
-        stdout = capture_stdout { expect { command.run! }.to raise_error(SystemExit) }
-        expect(JSON.parse(stdout)["output"]).to include("timeout")
+        record = command.run
+        expect(record[:output]).to include("timeout")
       end
     end
 
@@ -104,8 +104,8 @@ describe Alerty::Command do
           exclusive: '/tmp/lock',
           popen2e: true,
         }).and_raise(Frontkick::Locked)
-        stdout = capture_stdout { expect { command.run! }.to raise_error(SystemExit) }
-        expect(JSON.parse(stdout)["output"]).to include("lock")
+        record = command.run
+        expect(record[:output]).to include("lock")
       end
     end
 
@@ -131,8 +131,8 @@ describe Alerty::Command do
           exclusive: nil,
           popen2e: true,
         }).and_return(Frontkick::Result.new(stdout: 'foo', exit_code: 1))
-        stdout = capture_stdout { expect { command.run! }.to raise_error(SystemExit) }
-        expect(JSON.parse(stdout)["retries"]).to eql(1)
+        record = command.run
+        expect(record[:retries]).to eql(1)
       end
     end
 

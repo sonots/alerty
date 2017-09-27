@@ -13,4 +13,23 @@ class Alerty
       logger.level = Config.log_level
     end
   end
+
+  # @param [Hash] record
+  # @option record [String] :hostname
+  # @option record [String] :command
+  # @option record [Integer] :exitstatus
+  # @option record [String] :output
+  # @option record [Float] :started_at unix timestamp
+  # @option record [Float] :duration
+  # @option record [Integer] :retries number of being retried
+  def self.send(record)
+    PluginFactory.plugins.each do |plugin|
+      begin
+        plugin.alert(record)
+      rescue => e
+        puts "#{e.class} #{e.message} #{e.backtrace.join("\n")}" if Config.debug?
+        Alerty.logger.warn "#{e.class} #{e.message} #{e.backtrace.join("\n")}"
+      end
+    end
+  end
 end

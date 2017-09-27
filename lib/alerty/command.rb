@@ -10,7 +10,7 @@ class Alerty
       @hostname = Socket.gethostname
     end
 
-    def run!
+    def run
       record = {}
       with_retry do |retries|
         started_at = Time.now
@@ -50,17 +50,7 @@ class Alerty
         Alerty.logger.info { "result: #{record.to_json}" }
         record
       end
-      unless record[:exitstatus] == 0
-        PluginFactory.plugins.each do |plugin|
-          begin
-            plugin.alert(record)
-          rescue => e
-            puts "#{e.class} #{e.message} #{e.backtrace.join("\n")}" if Config.debug?
-            Alerty.logger.warn "#{e.class} #{e.message} #{e.backtrace.join("\n")}"
-          end
-        end
-        exit record[:exitstatus]
-      end
+      record
     end
 
     private

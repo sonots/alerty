@@ -58,6 +58,16 @@ Usage: alerty [options] -- command
         --dotenv                     Load environment variables from .env file with dotenv
 ```
 
+### Experimental: Send alert from STDIN
+
+This interface allows us to send notification even if a command does not fail.
+
+CLI Example:
+
+```
+$ echo 'this is a test' | alerty -c example.yml
+```
+
 ## Plugins
 
 Following plugins are available:
