@@ -82,6 +82,7 @@ Following plugins are available:
 * [inokappa/alerty-plugin-datadog_event](https://github.com/inokappa/alerty-plugin-datadog_event)
 * [inokappa/alerty-plugin-amazon_cloudwatch_logs](https://github.com/inokappa/alerty-plugin-amazon_cloudwatch_logs)
 * [inokappa/alerty-plugin-post_im_kayac](https://github.com/inokappa/alerty-plugin-post_im_kayac)
+* [potato2003/alerty-plugin-stackdriver](https://github.com/potato2003/alerty-plugin-stackdriver)
 
 ## Plugin Architecture
 
