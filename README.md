@@ -1,6 +1,6 @@
 # alerty
 
-A CLI utility to send an alert if a given command failed. 
+A pluggable CLI utility to send an alert if a given command failed. 
 
 ## How Useful?
 
@@ -95,7 +95,7 @@ You must follow following naming conventions:
 * class name: Alerty::Plugin:Xxx (XxxYyy)
 
 ### Interface
-u
+
 What you have to implement is `#initialize` and `#alert` methods. Here is an example of `file` plugin:
 
 ```ruby
